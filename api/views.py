@@ -64,5 +64,12 @@ class TodoListAPI(generics.ListAPIView):
 
 
 class TodoDetailAPI(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Todo.objects.all()
+    '''
+    View for get a specific todo record.
+    '''
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = TodoSerializer
+
+    def get_queryset(self):
+        todos = Todo.objects.filter(user=self.request.user)
+        return todos
