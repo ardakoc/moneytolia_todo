@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.hashers import make_password
 
+from todos.models import Todo
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(
@@ -74,8 +76,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        validated_data['password'] = make_password(
-            validated_data.get('password'))
+        # validated_data['password'] = make_password(
+        #     validated_data.get('password'))
         user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -87,3 +89,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
+
+class TodoSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Todo
+        exclude = ('user',)

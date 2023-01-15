@@ -1,8 +1,11 @@
 from django.urls import path
 
-from .views import LoginAPI, RegisterUserAPI
+from api import views
 
 urlpatterns = [
-    path('login/', LoginAPI.as_view()),
-    path('register/', RegisterUserAPI.as_view()),
+    path('login/', views.LoginAPI.as_view()),
+    path('register/', views.RegisterUserAPI.as_view()),
+    path('todos/', views.TodoListAPI.as_view(), name='todos'),
+    path('todos/add/', views.TodoCreateAPI.as_view()),
+    path('todos/<int:pk>/', views.TodoDetailAPI.as_view()),
 ]
