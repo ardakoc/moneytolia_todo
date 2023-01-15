@@ -1,3 +1,5 @@
+import random
+
 from rest_framework import permissions
 from rest_framework import generics
 from rest_framework import status
@@ -12,14 +14,11 @@ from todos.models import Todo
 
 class LoginAPI(generics.CreateAPIView):
     '''
-    View for user authentication.
-
-    * Requires token authentication.
-    ** All users are able to access this view.
+    User login.
     '''
+    name = 'Login'
     permission_classes = (permissions.AllowAny,)
     serializer_class = LoginSerializer
-    # authentication_classes = ()
     
     def post(self, request, format=None):
         serializer = LoginSerializer(data=self.request.data,
@@ -34,16 +33,18 @@ class LoginAPI(generics.CreateAPIView):
 
 class RegisterUserAPI(generics.CreateAPIView):
     '''
-    View for register new user.
+    Register new user.
     '''
+    name = 'Register'
     permission_classes = (permissions.AllowAny,)
     serializer_class = RegisterSerializer
 
 
 class TodoCreateAPI(generics.CreateAPIView):
     '''
-    View for add new todo item for authenticated user.
+    Create a new todo record for authenticated user.
     '''
+    name = 'Add To-do Item'
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = TodoSerializer
 
@@ -53,8 +54,9 @@ class TodoCreateAPI(generics.CreateAPIView):
 
 class TodoListAPI(generics.ListAPIView):
     '''
-    View for list all todo items for authenticated user.
+    List all todo records for authenticated user.
     '''
+    name = 'To-do\'s'
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = TodoSerializer
 
@@ -65,11 +67,29 @@ class TodoListAPI(generics.ListAPIView):
 
 class TodoDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     '''
-    View for get a specific todo record.
+    Get, edit or delete a specific todo record 
+    of authenticated user.
     '''
+    name = 'To-do Detail'
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = TodoSerializer
 
     def get_queryset(self):
         todos = Todo.objects.filter(user=self.request.user)
         return todos
+
+
+class RandomTodoDetailAPI(generics.RetrieveAPIView):
+    '''
+    Get a random todo record of authenticated user.
+    '''
+    name = 'Random To-do'
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = TodoSerializer
+
+    def get_object(self):
+        todos = Todo.objects.filter(
+            user=self.request.user).values_list('pk', flat=True)
+        random_pk = random.choice(todos)
+        random_todo = Todo.objects.get(pk=random_pk)
+        return random_todo
