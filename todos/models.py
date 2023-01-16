@@ -5,10 +5,14 @@ from django.contrib.auth.models import User
 class Todo(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=200, null=True)
-    description = models.TextField(null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    completed = models.BooleanField(default=False)
+    title = models.CharField(
+        max_length=200, null=True, help_text='To-do item title')
+    description = models.TextField(
+        null=True, blank=True, help_text='To-do item description')
+    created = models.DateTimeField(
+        auto_now_add=True, help_text='Creation time of to-do item')
+    completed = models.BooleanField(
+        default=False, help_text='Is to-do item completed?  ')
 
     def __str__(self):
         return self.title + ' (' + str(self.user) + ')'

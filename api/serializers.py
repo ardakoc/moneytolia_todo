@@ -11,10 +11,12 @@ from todos.models import Todo
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(
         label='Username',
+        help_text='Username',
         write_only=True
     )
     password = serializers.CharField(
         label='Password',
+        help_text='Password',
         write_only=True,
         trim_whitespace=False,
         style={'input_type': 'password'}
@@ -41,16 +43,19 @@ class LoginSerializer(serializers.Serializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
+        help_text='Registration email',
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
     password = serializers.CharField(
+        help_text='Set a password',
         write_only=True,
         required=True,
         validators=[validate_password],
         style={'input_type': 'password'}
     )
     password2 = serializers.CharField(
+        help_text='Confirm your password',
         write_only=True,
         required=True,
         style={'input_type': 'password'}
@@ -62,8 +67,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             'email', 'first_name', 'last_name'
         )
         extra_kwargs = {
-            'first_name': {'required': True},
-            'last_name': {'required': True}
+            'first_name': {'required': True, 'help_text': 'Your first name'},
+            'last_name': {'required': True, 'help_text': 'Your last name'}
         }
 
     def validate(self, attrs):
