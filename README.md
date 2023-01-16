@@ -8,7 +8,7 @@ If you want to use the API,
 
 **1. Clone the project:**
 ```
-$ git clone git@github.com:ardakoc/moneytolia_todo.git
+$ git clone https://github.com/ardakoc/moneytolia_todo.git
 ```
 **2. Install the packages in the requirements file:**
 ```
