@@ -8,15 +8,15 @@ If you want to use the API,
 
 **1. Clone the project:**
 ```
-$ git clone git@github.com:ardakoc/moneytolia_todo.git
+$ git clone https://github.com/ardakoc/moneytolia_todo.git
 ```
 **2. Install the packages in the requirements file:**
 ```
+$ cd moneytolia_todo
 $ pip install -r requirements.txt
 ```
 **3. Make migrations and migrate:**
 ```
-$ cd moneytolia_todo
 $ python manage.py makemigrations
 $ python manage.py migrate
 ```
@@ -25,6 +25,8 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
-## API Document
+## Access the API Document
 
-You can access the API document and get all endpoints from (http://127.0.0.1:8000/).
+You have to login to access the API document. If you don't have registered user, register from http://127.0.0.1:8000/register/.
+After that, you can login from http://127.0.0.1:8000/login/.
+Now, you can access the API document and get other endpoints from http://127.0.0.1:8000/.
