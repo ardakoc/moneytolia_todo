@@ -27,6 +27,4 @@ $ python manage.py runserver
 
 ## Access the API Document
 
-You have to login to access the API document. If you don't have registered user, register from http://127.0.0.1:8000/register/.
-After that, you can login from http://127.0.0.1:8000/login/.
-Now, you can access the API document and get other endpoints from http://127.0.0.1:8000/.
+You can access the API document and get other endpoints from http://127.0.0.1:8000/.
